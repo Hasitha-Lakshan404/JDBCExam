@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Student;
@@ -64,8 +65,22 @@ public class StudentFormController {
 
     }
 
-    public void btnAdd(ActionEvent actionEvent) {
-
+    public void btnAdd(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        boolean b = StudentCrudController.addStudent(new Student(
+                        txtStudentId.getText(),
+                        txtStudentName.getText(),
+                        txtEmail.getText(),
+                        txtTellNo.getText(),
+                        txtAddress.getText(),
+                        txtNic.getText()
+                )
+        );
+        if (b) {
+            loadAllStudent();
+            new Alert(Alert.AlertType.WARNING, "Student Added Successfully").show();
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
+        }
     }
 
     public void btnClear(ActionEvent actionEvent) {
