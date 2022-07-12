@@ -34,4 +34,27 @@ public class StudentCrudController {
         return stList;
 
     }
+
+    public static boolean addStudent(Student student) throws SQLException, ClassNotFoundException {
+
+
+        if (CrudUtil.execute("INSERT INTO Student VALUES (?,?,?,?,?,?)",student.getStudentId(),student.getName(),student.getEmail(),student.getTelNo(),student.getAddress(),student.getNic())){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean updateStudent(Student student) throws SQLException, ClassNotFoundException{
+
+        if(CrudUtil.execute("UPDATE Student SET studentId = ?,studentName = ?,email = ?, contact = ?, address = ?,nic = ? WHERE StudentId = ? ",student.getStudentId(),student.getName(),student.getEmail(),student.getTelNo(),student.getAddress(),student.getNic(),student.getStudentId())){
+
+            return true;
+        }
+        return false;
+    }
+
+
+    public static boolean deleteStudent(String id)throws SQLException, ClassNotFoundException{
+        return CrudUtil.execute("DELETE FROM Student WHERE id = ?",id);
+    }
 }

@@ -7,7 +7,7 @@ CREATE TABLE if not exists student(
                                       email TEXT,
                                       contact VARCHAR(20),
                                       address TEXT,
-                                      niv VARCHAR(45),
+                                      nic VARCHAR(45),
                                       CONSTRAINT PRIMARY KEY (studentId)
 );
 
