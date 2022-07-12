@@ -1,0 +1,89 @@
+CREATE DATABASE JDBCExam;
+
+USE JDBCExam;
+CREATE TABLE if not exists student(
+                                      studentId VARCHAR(45),
+                                      studentName VARCHAR(45),
+                                      email TEXT,
+                                      contact VARCHAR(20),
+                                      address TEXT,
+                                      niv VARCHAR(45),
+                                      CONSTRAINT PRIMARY KEY (studentId)
+);
+
+
+
+CREATE TABLE if not exists teacher(
+                                      teacherId VARCHAR(45),
+                                      name VARCHAR(45),
+                                      nic VARCHAR(45),
+                                      contact VARCHAR(45),
+                                      address VARCHAR(45),
+                                      CONSTRAINT PRIMARY KEY (teacherId)
+
+);
+
+DROP TABLE subject;
+CREATE TABLE if not exists subject(
+                                      subjectId VARCHAR(45),
+                                      SubjectName VARCHAR(45),
+                                      Credit DECIMAL(15,2),
+                                      teacherId VARCHAR(45),
+                                      CONSTRAINT PRIMARY KEY (subjectId),
+                                      CONSTRAINT FOREIGN KEY (teacherId) REFERENCES teacher(teacherId)
+                                          ON UPDATE CASCADE ON DELETE CASCADE
+
+);
+
+CREATE TABLE if not exists course(
+                                      courseId VARCHAR(45),
+                                      courseName VARCHAR(45),
+                                      cost DECIMAL(15,2),
+                                      duration VARCHAR(45),
+                                      subjectId VARCHAR(45),
+                                      CONSTRAINT PRIMARY KEY (courseId),
+                                      CONSTRAINT FOREIGN KEY (subjectId) REFERENCES subject(subjectId)
+                                          ON UPDATE CASCADE ON DELETE CASCADE
+
+);
+
+
+CREATE TABLE if not exists intake(
+                                     intakeId VARCHAR(45),
+                                     startDate DATE,
+                                     cost DECIMAL(15,2),
+                                     intakeCol VARCHAR(45),
+                                     description VARCHAR(45),
+                                     courseId VARCHAR(45),
+                                     CONSTRAINT PRIMARY KEY (intakeId),
+                                     CONSTRAINT FOREIGN KEY (courseId) REFERENCES course(courseId)
+                                         ON UPDATE CASCADE ON DELETE CASCADE
+
+);
+
+DROP TABLE registration;
+DROP TABLE payment;
+
+CREATE TABLE if not exists registration(
+                                      registrationId VARCHAR(45),
+                                      regDate DATE,
+                                      email TEXT,
+                                      studentId VARCHAR(20),
+                                      intakeId VARCHAR(45),
+                                      CONSTRAINT PRIMARY KEY (registrationId),
+                                      CONSTRAINT FOREIGN KEY (studentId) REFERENCES student(studentId)
+                                       ON UPDATE CASCADE ON DELETE CASCADE,
+                                      CONSTRAINT FOREIGN KEY (intakeId) REFERENCES intake(intakeId)
+                                          ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE if not exists payment(
+                                           paymentId VARCHAR(45),
+                                           date DATE,
+                                           email TEXT,
+                                           cost DECIMAL(15,2),
+                                           registrationId VARCHAR(45),
+                                           CONSTRAINT PRIMARY KEY (paymentId),
+                                           CONSTRAINT FOREIGN KEY (registrationId) REFERENCES registration(registrationId)
+                                               ON UPDATE CASCADE ON DELETE CASCADE
+);
