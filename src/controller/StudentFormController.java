@@ -79,21 +79,42 @@ public class StudentFormController {
     }
 
     public void btnAddOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        boolean b = StudentCrudController.addStudent(new Student(
-                        txtStudentId.getText(),
-                        txtStudentName.getText(),
-                        txtEmail.getText(),
-                        txtTellNo.getText(),
-                        txtAddress.getText(),
-                        txtNic.getText()
-                )
-        );
-        if (b) {
-            loadAllStudent();
-            new Alert(Alert.AlertType.WARNING, "Student Added Successfully").show();
-        } else {
-            new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
-        }
+
+       if(btnAdd.getText().equalsIgnoreCase("Add")){
+           boolean b = StudentCrudController.addStudent(new Student(
+                           txtStudentId.getText(),
+                           txtStudentName.getText(),
+                           txtEmail.getText(),
+                           txtTellNo.getText(),
+                           txtAddress.getText(),
+                           txtNic.getText()
+                   )
+           );
+           if (b) {
+               loadAllStudent();
+               new Alert(Alert.AlertType.WARNING, "Student Added Successfully").show();
+           } else {
+               new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
+           }
+       }else{
+           boolean b = StudentCrudController.updateStudent(new Student(
+                           txtStudentId.getText(),
+                           txtStudentName.getText(),
+                           txtEmail.getText(),
+                           txtTellNo.getText(),
+                           txtAddress.getText(),
+                           txtNic.getText()
+                   )
+           );
+           if (b) {
+               loadAllStudent();
+               new Alert(Alert.AlertType.WARNING, "Student Updated Successfully").show();
+               btnAdd.setText("Add");
+           } else {
+               new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
+           }
+       }
+
     }
 
     public void btnClearOnAction(ActionEvent actionEvent) {
