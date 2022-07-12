@@ -2,10 +2,14 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import model.Student;
 import view.TM.StudentTM;
 
@@ -29,6 +33,7 @@ public class StudentFormController {
     public JFXTextField txtStudentId;
     public JFXTextField txtAddress;
     public JFXButton btnAdd;
+    public JFXTextField txtSearch;
 
     public void initialize() throws SQLException, ClassNotFoundException {
         loadAllStudent();
@@ -139,5 +144,30 @@ public class StudentFormController {
         txtTellNo.clear();
         txtAddress.clear();
         txtNic.clear();
+    }
+
+    public void txtSearchKeyReleasedOnAction(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
+        String search = "%" + txtSearch.getText() + "%";
+
+        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+            ArrayList<Student> searchStudent = StudentCrudController.getSearchStudent(search);
+            ObservableList<StudentTM> st = FXCollections.observableArrayList();
+
+            for (Student student : searchStudent) {
+                st.add(new StudentTM(
+                        student.getStudentId(),
+                        student.getName(),
+                        student.getEmail(),
+                        student.getTelNo(),
+                        student.getAddress(),
+                        student.getNic()
+                ));
+            }
+
+
+            tblStudent.getItems().clear();
+            tblStudent.getItems().addAll(st);
+            tblStudent.refresh();
+        }
     }
 }

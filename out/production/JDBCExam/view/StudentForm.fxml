@@ -36,5 +36,6 @@
       <JFXButton layoutX="959.0" layoutY="154.0" onAction="#btnClearOnAction" prefHeight="38.0" prefWidth="144.0" style="-fx-background-color: #486597;" text="Clear" textFill="WHITE" />
       <JFXTextField fx:id="txtStudentId" labelFloat="true" layoutX="63.0" layoutY="43.0" promptText="Student Id" />
       <JFXTextField fx:id="txtAddress" labelFloat="true" layoutX="63.0" layoutY="146.0" promptText="Address" />
+      <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="256.0" layoutY="236.0" onKeyReleased="#txtSearchKeyReleasedOnAction" prefHeight="31.0" prefWidth="610.0" promptText=" Search" />
    </children>
 </AnchorPane>
