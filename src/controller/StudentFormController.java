@@ -74,50 +74,64 @@ public class StudentFormController {
 
     }
 
-    public void menuDeleteOnAction(ActionEvent actionEvent) {
+    public void menuDeleteOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        StudentTM selectedItem = tblStudent.getSelectionModel().getSelectedItem();
+
+        if(StudentCrudController.deleteStudent(selectedItem.getStudentId())){
+            loadAllStudent();
+            new Alert(Alert.AlertType.WARNING, "Student Deleted").show();
+        }else{
+            new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
+        }
 
     }
 
     public void btnAddOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
-       if(btnAdd.getText().equalsIgnoreCase("Add")){
-           boolean b = StudentCrudController.addStudent(new Student(
-                           txtStudentId.getText(),
-                           txtStudentName.getText(),
-                           txtEmail.getText(),
-                           txtTellNo.getText(),
-                           txtAddress.getText(),
-                           txtNic.getText()
-                   )
-           );
-           if (b) {
-               loadAllStudent();
-               new Alert(Alert.AlertType.WARNING, "Student Added Successfully").show();
-           } else {
-               new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
-           }
-       }else{
-           boolean b = StudentCrudController.updateStudent(new Student(
-                           txtStudentId.getText(),
-                           txtStudentName.getText(),
-                           txtEmail.getText(),
-                           txtTellNo.getText(),
-                           txtAddress.getText(),
-                           txtNic.getText()
-                   )
-           );
-           if (b) {
-               loadAllStudent();
-               new Alert(Alert.AlertType.WARNING, "Student Updated Successfully").show();
-               btnAdd.setText("Add");
-           } else {
-               new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
-           }
-       }
+        if (btnAdd.getText().equalsIgnoreCase("Add")) {
+            boolean b = StudentCrudController.addStudent(new Student(
+                            txtStudentId.getText(),
+                            txtStudentName.getText(),
+                            txtEmail.getText(),
+                            txtTellNo.getText(),
+                            txtAddress.getText(),
+                            txtNic.getText()
+                    )
+            );
+            if (b) {
+                loadAllStudent();
+                new Alert(Alert.AlertType.WARNING, "Student Added Successfully").show();
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
+            }
+        } else {
+            boolean b = StudentCrudController.updateStudent(new Student(
+                            txtStudentId.getText(),
+                            txtStudentName.getText(),
+                            txtEmail.getText(),
+                            txtTellNo.getText(),
+                            txtAddress.getText(),
+                            txtNic.getText()
+                    )
+            );
+            if (b) {
+                loadAllStudent();
+                new Alert(Alert.AlertType.WARNING, "Student Updated Successfully").show();
+                btnAdd.setText("Add");
+                txtStudentId.setEditable(true);
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
+            }
+        }
 
     }
 
     public void btnClearOnAction(ActionEvent actionEvent) {
-
+        txtStudentId.clear();
+        txtStudentName.clear();
+        txtEmail.clear();
+        txtTellNo.clear();
+        txtAddress.clear();
+        txtNic.clear();
     }
 }
