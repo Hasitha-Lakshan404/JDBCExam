@@ -1,6 +1,7 @@
-CREATE DATABASE JDBCExam;
 
-USE JDBCExam;
+CREATE DATABASE IJSE;
+
+USE IJSE;
 CREATE TABLE if not exists student(
                                       studentId VARCHAR(45),
                                       studentName VARCHAR(45),
@@ -52,7 +53,6 @@ CREATE TABLE if not exists intake(
                                      intakeId VARCHAR(45),
                                      startDate DATE,
                                      cost DECIMAL(15,2),
-                                     intakeCol VARCHAR(45),
                                      description VARCHAR(45),
                                      courseId VARCHAR(45),
                                      CONSTRAINT PRIMARY KEY (intakeId),
