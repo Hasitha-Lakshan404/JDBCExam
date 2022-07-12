@@ -1,4 +1,4 @@
-
+DROP DATABASE IJSE;
 CREATE DATABASE IJSE;
 
 USE IJSE;
@@ -24,7 +24,7 @@ CREATE TABLE if not exists teacher(
 
 );
 
-DROP TABLE subject;
+# DROP TABLE subject;
 CREATE TABLE if not exists subject(
                                       subjectId VARCHAR(45),
                                       SubjectName VARCHAR(45),
@@ -37,53 +37,92 @@ CREATE TABLE if not exists subject(
 );
 
 CREATE TABLE if not exists course(
-                                      courseId VARCHAR(45),
-                                      courseName VARCHAR(45),
-                                      cost DECIMAL(15,2),
-                                      duration VARCHAR(45),
-                                      subjectId VARCHAR(45),
-                                      CONSTRAINT PRIMARY KEY (courseId),
-                                      CONSTRAINT FOREIGN KEY (subjectId) REFERENCES subject(subjectId)
-                                          ON UPDATE CASCADE ON DELETE CASCADE
-
-);
-
-
-CREATE TABLE if not exists intake(
-                                     intakeId VARCHAR(45),
-                                     startDate DATE,
-                                     cost DECIMAL(15,2),
-                                     description VARCHAR(45),
                                      courseId VARCHAR(45),
-                                     CONSTRAINT PRIMARY KEY (intakeId),
-                                     CONSTRAINT FOREIGN KEY (courseId) REFERENCES course(courseId)
+                                     courseName VARCHAR(45),
+                                     cost DECIMAL(15,2),
+                                     duration VARCHAR(45),
+                                     subjectId VARCHAR(45),
+                                     CONSTRAINT PRIMARY KEY (courseId),
+                                     CONSTRAINT FOREIGN KEY (subjectId) REFERENCES subject(subjectId)
                                          ON UPDATE CASCADE ON DELETE CASCADE
 
 );
 
-DROP TABLE registration;
-DROP TABLE payment;
 
-CREATE TABLE if not exists registration(
-                                      registrationId VARCHAR(45),
-                                      regDate DATE,
-                                      email TEXT,
-                                      studentId VARCHAR(20),
-                                      intakeId VARCHAR(45),
-                                      CONSTRAINT PRIMARY KEY (registrationId),
-                                      CONSTRAINT FOREIGN KEY (studentId) REFERENCES student(studentId)
-                                       ON UPDATE CASCADE ON DELETE CASCADE,
-                                      CONSTRAINT FOREIGN KEY (intakeId) REFERENCES intake(intakeId)
-                                          ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE Intake(
+                       intake_id VARCHAR(45) NOT NULL,
+                       start_date DATE,
+                       description VARCHAR(45),
+                       course_id VARCHAR(45),
+                       CONSTRAINT PRIMARY KEY (intake_id),
+                       CONSTRAINT FOREIGN KEY(course_id) REFERENCES Course(courseId) on Delete Cascade on Update Cascade
 );
 
-CREATE TABLE if not exists payment(
-                                           paymentId VARCHAR(45),
-                                           date DATE,
-                                           email TEXT,
-                                           cost DECIMAL(15,2),
-                                           registrationId VARCHAR(45),
-                                           CONSTRAINT PRIMARY KEY (paymentId),
-                                           CONSTRAINT FOREIGN KEY (registrationId) REFERENCES registration(registrationId)
-                                               ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE Registration(
+                             registration_id VARCHAR(45) NOT NULL,
+                             reg_date DATE,
+                             student_id VARCHAR(45),
+                             intake_id VARCHAR(45),
+                             CONSTRAINT PRIMARY KEY (registration_id),
+                             CONSTRAINT FOREIGN KEY(student_id) REFERENCES Student(studentId) on Delete Cascade on Update Cascade,
+                             CONSTRAINT FOREIGN KEY(intake_id) REFERENCES Intake(intake_id) on Delete Cascade on Update Cascade
 );
+
+
+
+CREATE TABLE Payment(
+                         payment_id VARCHAR(45) NOT NULL,
+                         dates DATE,
+                         cost DOUBLE,
+                         registration_id VARCHAR(45),
+                         CONSTRAINT PRIMARY KEY (payment_id),
+                         CONSTRAINT FOREIGN KEY(registration_id) REFERENCES Registration(registration_id) on Delete Cascade on Update Cascade
+);
+
+#--------------------Student----------------------------------------------
+
+INSERT INTO Student VALUES('S001','Hasitha Lakshan','hasithalakshan@@gmail.com','0775894785','Bandaragama','5148796');
+INSERT INTO Student VALUES('S002','sirisena','siris@gmail.com','0711444578','Colombo','5987789');
+INSERT INTO Student VALUES('S003','Somapala','somap99@gmail.com','0788758462','Galle','265948155');
+
+
+#--------------------Teacher----------------------------------------------
+
+INSERT INTO Teacher VALUES('T001','Kasuni','1648597421','07725865321','Panadura');
+INSERT INTO Teacher VALUES('T002','Amanda','1548795482','0725365420','Matara');
+INSERT INTO Teacher VALUES('T003','Sirilal','1648795125','0712536232','Galle');
+
+
+
+#--------------------Subject------------------------------------------
+
+INSERT INTO Subject VALUES('SB001','PRF',99,'T002');
+INSERT INTO Subject VALUES('SB002','DBMS',90,'T001');
+INSERT INTO Subject VALUES('SB003','JDBC',87,'T003');
+
+#--------------------Course------------------------------------------
+
+INSERT INTO Course VALUES('C001','GDSE',350000,'THREE YEARS','SB001');
+INSERT INTO Course VALUES('C002','DEP',250000,'6 MONTHS','SB002');
+INSERT INTO Course VALUES('C003','CMJD',350000,'6 MONTHS','SB003');
+
+
+#--------------------Intake------------------------------------------
+
+INSERT INTO intake VALUES('I001','2021-01-10','GDSE59','C001');
+INSERT INTO intake VALUES('I002','2021-06-20','GDSE59','C003');
+INSERT INTO intake VALUES('I003','2021-12-08','GDSE60','C002');
+
+
+#--------------------Registration------------------------------------------
+
+INSERT INTO Registration VALUES('RE001','2020-12-10','S002','I001');
+INSERT INTO Registration VALUES('RE002','2021-05-08','S001','I002');
+INSERT INTO Registration VALUES('RE003','2021-11-20','S003','I003');
+
+
+#--------------------Payment------------------------------------------
+
+INSERT INTO payment VALUES('P001','2021-10-10',12000.00,'RE001');
+INSERT INTO payment VALUES('P002','2021-10-11',13000.00,'RE002');
+INSERT INTO payment VALUES('P003','2021-10-12',10000.00,'RE002');
