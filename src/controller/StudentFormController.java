@@ -100,6 +100,7 @@ public class StudentFormController {
             );
             if (b) {
                 loadAllStudent();
+                clearText();
                 new Alert(Alert.AlertType.WARNING, "Student Added Successfully").show();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
@@ -119,6 +120,7 @@ public class StudentFormController {
                 new Alert(Alert.AlertType.WARNING, "Student Updated Successfully").show();
                 btnAdd.setText("Add");
                 txtStudentId.setEditable(true);
+                clearText();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Something went wrong").show();
             }
@@ -127,6 +129,10 @@ public class StudentFormController {
     }
 
     public void btnClearOnAction(ActionEvent actionEvent) {
+        clearText();
+    }
+
+    private void clearText(){
         txtStudentId.clear();
         txtStudentName.clear();
         txtEmail.clear();
