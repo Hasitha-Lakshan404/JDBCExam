@@ -26,8 +26,8 @@ public class StudentFormController {
     public JFXTextField txtStudentId;
     public JFXTextField txtAddress;
 
-    public void initialize(){
-
+    public void initialize() throws SQLException, ClassNotFoundException {
+        loadAllStudent();
     }
 
     public void loadAllStudent() throws SQLException, ClassNotFoundException {
