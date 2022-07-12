@@ -1,5 +1,6 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -27,6 +28,7 @@ public class StudentFormController {
     public JFXTextField txtTellNo;
     public JFXTextField txtStudentId;
     public JFXTextField txtAddress;
+    public JFXButton btnAdd;
 
     public void initialize() throws SQLException, ClassNotFoundException {
         loadAllStudent();
@@ -58,6 +60,17 @@ public class StudentFormController {
 
 
     public void menuUpdateOnAction(ActionEvent actionEvent) {
+        StudentTM selectedItem = tblStudent.getSelectionModel().getSelectedItem();
+
+        txtStudentId.setText(selectedItem.getStudentId());
+        txtStudentName.setText(selectedItem.getName());
+        txtEmail.setText(selectedItem.getEmail());
+        txtTellNo.setText(selectedItem.getTelNo());
+        txtAddress.setText(selectedItem.getAddress());
+        txtNic.setText(selectedItem.getNic());
+
+        txtStudentId.setEditable(false);
+        btnAdd.setText("Update");
 
     }
 
@@ -65,7 +78,7 @@ public class StudentFormController {
 
     }
 
-    public void btnAdd(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    public void btnAddOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         boolean b = StudentCrudController.addStudent(new Student(
                         txtStudentId.getText(),
                         txtStudentName.getText(),
@@ -83,7 +96,7 @@ public class StudentFormController {
         }
     }
 
-    public void btnClear(ActionEvent actionEvent) {
+    public void btnClearOnAction(ActionEvent actionEvent) {
 
     }
 }
