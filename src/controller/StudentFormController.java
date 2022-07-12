@@ -3,6 +3,7 @@ package controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Student;
 import view.TM.StudentTM;
 
@@ -28,6 +29,13 @@ public class StudentFormController {
 
     public void initialize() throws SQLException, ClassNotFoundException {
         loadAllStudent();
+
+        tblStudent.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        tblStudent.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
+        tblStudent.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("email"));
+        tblStudent.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("telNo"));
+        tblStudent.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("address"));
+        tblStudent.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("nic"));
     }
 
     public void loadAllStudent() throws SQLException, ClassNotFoundException {
