@@ -3,7 +3,11 @@ package controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableView;
+import model.Student;
 import view.TM.StudentTM;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * @author : Hasitha Lakshan
@@ -26,15 +30,37 @@ public class StudentFormController {
 
     }
 
+    public void loadAllStudent() throws SQLException, ClassNotFoundException {
+        tblStudent.getItems().clear();
+        ArrayList<Student> allStudent = StudentCrudController.getAllStudent();
+
+
+        for (Student student : allStudent) {
+            tblStudent.getItems().add(new StudentTM(
+                    student.getStudentId(),
+                    student.getName(),
+                    student.getEmail(),
+                    student.getTelNo(),
+                    student.getAddress(),
+                    student.getNic()
+            ));
+        }
+    }
+
+
     public void menuUpdateOnAction(ActionEvent actionEvent) {
+
     }
 
     public void menuDeleteOnAction(ActionEvent actionEvent) {
+
     }
 
     public void btnAdd(ActionEvent actionEvent) {
+
     }
 
     public void btnClear(ActionEvent actionEvent) {
+
     }
 }

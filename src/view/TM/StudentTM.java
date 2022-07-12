@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class StudentTM {
     String studentId;
     String name;
-    String text;
+    String email;
     String telNo;
     String address;
     String nic;
