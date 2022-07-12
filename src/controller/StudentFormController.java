@@ -3,6 +3,7 @@ package controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableView;
+import view.TM.StudentTM;
 
 /**
  * @author : Hasitha Lakshan
@@ -14,12 +15,16 @@ import javafx.scene.control.TableView;
 public class StudentFormController {
 
     public JFXTextField txtStudentName;
-    public TableView tblStudent;
+    public TableView<StudentTM> tblStudent;
     public JFXTextField txtNic;
     public JFXTextField txtEmail;
     public JFXTextField txtTellNo;
     public JFXTextField txtStudentId;
     public JFXTextField txtAddress;
+
+    public void initialize(){
+
+    }
 
     public void menuUpdateOnAction(ActionEvent actionEvent) {
     }
